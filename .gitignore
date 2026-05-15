@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+
+ads-llm-exp/
+venv/
+
+results/*.csv
+
+.cache/
+huggingface/
+
+.vscode/
+.ipynb_checkpoints/
