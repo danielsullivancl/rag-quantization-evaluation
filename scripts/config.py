@@ -49,7 +49,7 @@ NUM_REPETITIONS = 1
 
 PAUSE_BETWEEN_RUNS_S = 2
 
-OUTPUT_CSV = "../results/results.csv"
+OUTPUT_CSV = "../results/results_notebook.csv"
 
 # ==================================================
 # GPU

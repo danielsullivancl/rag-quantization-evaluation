@@ -17,6 +17,16 @@ df = pd.read_csv(OUTPUT_CSV)
 print(f"Rows: {len(df)}")
 
 # ==================================================
+# FILTER SUCCESS
+# ==================================================
+
+df = df[
+    df["success"] == True
+].copy()
+
+print(f"Successful rows: {len(df)}")
+
+# ==================================================
 # CLEAN TEXT
 # ==================================================
 
@@ -27,8 +37,15 @@ def clean_text(text):
 
     return str(text).strip()
 
-df["expected"] = df["expected"].apply(clean_text)
-df["response"] = df["response"].apply(clean_text)
+df["expected"] = (
+    df["expected"]
+    .apply(clean_text)
+)
+
+df["response"] = (
+    df["response"]
+    .apply(clean_text)
+)
 
 # ==================================================
 # BERTSCORE
@@ -39,18 +56,30 @@ print("CALCULATING BERTSCORE")
 print("===================================")
 
 predictions = df["response"].tolist()
+
 references = df["expected"].tolist()
 
 P, R, F1 = bertscore(
     predictions,
     references,
     lang="en",
+    model_type="roberta-large",
     verbose=True
 )
 
-df["bertscore_precision"] = P.numpy()
-df["bertscore_recall"] = R.numpy()
-df["bertscore_f1"] = F1.numpy()
+df["bertscore_precision"] = (
+    P.numpy()
+)
+
+df["bertscore_recall"] = (
+    R.numpy()
+)
+
+df["bertscore_f1"] = (
+    F1.numpy()
+)
+
+print("BERTScore completed.")
 
 # ==================================================
 # ROUGE
@@ -69,7 +98,7 @@ rouge1_list = []
 rouge2_list = []
 rougeL_list = []
 
-for _, row in df.iterrows():
+for idx, row in df.iterrows():
 
     scores = scorer.score(
         row["expected"],
@@ -88,9 +117,17 @@ for _, row in df.iterrows():
         scores["rougeL"].fmeasure
     )
 
+    if (idx + 1) % 100 == 0:
+
+        print(
+            f"Processed {idx + 1} rows..."
+        )
+
 df["rouge1_f1"] = rouge1_list
 df["rouge2_f1"] = rouge2_list
 df["rougeL_f1"] = rougeL_list
+
+print("ROUGE completed.")
 
 # ==================================================
 # EXACT MATCH
@@ -115,6 +152,8 @@ df["exact_match"] = df.apply(
     ),
     axis=1
 )
+
+print("Exact Match completed.")
 
 # ==================================================
 # SAVE NEW CSV
@@ -146,7 +185,10 @@ print("===================================")
 
 summary = (
     df.groupby(
-        ["quantization", "rag"]
+        [
+            "quantization",
+            "rag"
+        ]
     )[
         [
             "bertscore_f1",
@@ -154,8 +196,8 @@ summary = (
             "exact_match",
             "end_to_end_latency_s",
             "throughput_tokens_s",
-            "baseline_vram_mb",
-            "ram_usage_mb"
+            "peak_vram_mb",
+            "peak_ram_mb"
         ]
     ]
     .mean()
@@ -164,7 +206,7 @@ summary = (
 print(summary)
 
 # ==================================================
-# BEST / WORST
+# BEST BERTSCORE
 # ==================================================
 
 print("\n===================================")
@@ -179,11 +221,16 @@ best = df.sort_values(
         "quantization",
         "rag",
         "bertscore_f1",
+        "rougeL_f1",
         "question"
     ]
 ].head(10)
 
 print(best)
+
+# ==================================================
+# WORST BERTSCORE
+# ==================================================
 
 print("\n===================================")
 print("WORST BERTSCORE")
@@ -197,11 +244,16 @@ worst = df.sort_values(
         "quantization",
         "rag",
         "bertscore_f1",
+        "rougeL_f1",
         "question"
     ]
 ].head(10)
 
 print(worst)
+
+# ==================================================
+# FINISHED
+# ==================================================
 
 print("\n===================================")
 print("FINISHED")
