@@ -11,3 +11,7 @@ huggingface/
 
 .vscode/
 .ipynb_checkpoints/
+
+*.pdf
+
+main.tex

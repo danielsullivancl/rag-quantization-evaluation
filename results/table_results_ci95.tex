@@ -1,0 +1,20 @@
+\begin{table}[ht]
+\centering
+\small
+\caption{Resultados agregados por máquina, quantização e uso de RAG. Os valores representam a média das execuções bem-sucedidas de cada configuração experimental ($n=450$ por configuração).}
+\label{tab:results-ci95}
+\begin{tabular}{llrrrr}
+\toprule
+Máquina & Configuração & Lat. (s) & Thr. (tok/s) & BERTScore & ROUGE-L \\
+\midrule
+Desktop & 4-bit sem RAG & 4,01 & 80,86 & 0,822 & 0,122 \\
+Desktop & 4-bit com RAG & 4,10 & 80,13 & 0,858 & 0,256 \\
+Desktop & 8-bit sem RAG & 15,52 & 13,16 & 0,822 & 0,124 \\
+Desktop & 8-bit com RAG & 15,49 & 12,66 & 0,858 & 0,254 \\
+Notebook & 4-bit sem RAG & 15,38 & 13,94 & 0,822 & 0,123 \\
+Notebook & 4-bit com RAG & 15,67 & 13,37 & 0,858 & 0,251 \\
+Notebook & 8-bit sem RAG & 35,66 & 5,78 & 0,822 & 0,124 \\
+Notebook & 8-bit com RAG & 35,30 & 5,61 & 0,859 & 0,257 \\
+\bottomrule
+\end{tabular}
+\end{table}

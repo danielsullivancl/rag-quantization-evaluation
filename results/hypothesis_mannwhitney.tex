@@ -1,0 +1,26 @@
+\begin{table}[ht]
+\centering
+\small
+\caption{Resultados do teste de Mann-Whitney U para as comparacoes principais.
+$\bar{x}_A$ e $\bar{x}_B$ sao as medias dos grupos comparados;
+$r$ e o coeficiente de correlacao de postos (tamanho de efeito).
+Significancia: *** $p{<}0{,}001$; ** $p{<}0{,}01$; * $p{<}0{,}05$; ns nao significativo.}
+\label{tab:hypothesis}
+\begin{tabular}{llrrrrrrrrrr}
+\toprule
+& & \multicolumn{5}{c}{\textbf{Desktop}} & \multicolumn{5}{c}{\textbf{Notebook}} \\
+\cmidrule(lr){3-7}\cmidrule(lr){8-12}
+\textbf{Comparacao} & \textbf{Metrica}
+  & $\bar{x}_A$ & $\bar{x}_B$ & $p$ & sig & $r$
+  & $\bar{x}_A$ & $\bar{x}_B$ & $p$ & sig & $r$ \\
+\midrule
+  \textbf{Quantizacao} & Latencia (s) & 4.059 & 15.508 & 0.0000 & *** & 0.991 & 15.524 & 35.476 & 0.0000 & *** & 0.962 \\
+   & Throughput (tok/s) & 80.497 & 12.911 & 0.0000 & *** & -1.000 & 13.656 & 5.697 & 0.0000 & *** & -1.000 \\
+   & RAM pico (MB) & 1008.832 & 3749.164 & 0.0000 & *** & 1.000 & 2468.638 & 6379.214 & 0.0000 & *** & 1.000 \\
+   & VRAM pico (MB) & 6254.710 & 7465.396 & 0.0000 & *** & 1.000 & 3612.416 & 3596.448 & 0.0000 & *** & -0.999 \\
+  \midrule
+  \textbf{RAG} & BERTScore F1 & 0.858 & 0.822 & 0.0000 & *** & -0.637 & 0.858 & 0.822 & 0.0000 & *** & -0.647 \\
+   & ROUGE-L F1 & 0.255 & 0.123 & 0.0000 & *** & -0.623 & 0.254 & 0.123 & 0.0000 & *** & -0.610 \\
+\bottomrule
+\end{tabular}
+\end{table}
