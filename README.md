@@ -32,6 +32,9 @@ For the RAG configuration, relevant passages are retrieved from the technical do
     │   ├── summary_with_ci95.csv
     │   └── table_results_ci95.tex
     │
+    ├── figures/
+    │   └── violin plots generated for statistical analysis
+    │
     ├── images_desktop/
     │   └── figures generated for the desktop environment
     │
